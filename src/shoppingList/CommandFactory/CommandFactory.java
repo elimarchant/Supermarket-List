@@ -14,5 +14,9 @@ public interface CommandFactory {
      * @param parts The tokenized string array from the user input.
      * @return A concrete implementation of the {@link Command} interface.
      */
+<<<<<<< HEAD
     Command create(String[] parts);
+=======
+    public Command create(String[] parts);
+>>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 }

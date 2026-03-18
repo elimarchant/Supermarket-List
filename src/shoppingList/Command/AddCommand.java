@@ -9,7 +9,11 @@ import shoppingList.Model.ShoppingList;
  */
 public class AddCommand implements Command  {
 
+<<<<<<< HEAD
     private final InventoryItem itemToAdd;
+=======
+    private InventoryItem itemToAdd;
+>>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 
     /**
      * Constructs an AddCommand with the specific item to be added.

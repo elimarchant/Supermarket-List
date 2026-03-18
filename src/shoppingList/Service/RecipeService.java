@@ -18,5 +18,9 @@ public interface RecipeService {
      * @param servings The desired number of servings to calculate quantities for.
      * @return A {@link List} of {@link InventoryItem} objects representing the required ingredients.
      */
+<<<<<<< HEAD
     List<InventoryItem> getRecipe(String name, int servings);
+=======
+    public List<InventoryItem> getRecipe(String name, int servings);
+>>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 }

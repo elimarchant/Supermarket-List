@@ -15,6 +15,18 @@ import java.util.Map;
  */
 public class InputParser {
 
+<<<<<<< HEAD
+=======
+    /**
+     * Pre-compiled regular expression for identifying positive integers.
+     */
+    private static final java.util.regex.Pattern INT_PATTERN = java.util.regex.Pattern.compile("^\\d+$");
+
+    /**
+     * Pre-compiled regular expression for identifying double-precision floating-point numbers.
+     */
+    private static final java.util.regex.Pattern DOUBLE_PATTERN = java.util.regex.Pattern.compile("^\\d+(\\.\\d+)?$");
+>>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 
     private final Map<String, CommandFactory> registry;
 

@@ -13,7 +13,11 @@ import java.util.Arrays;
  */
 public class SaveCommandFactory implements CommandFactory {
 
+<<<<<<< HEAD
 
+=======
+    private static final String EXPECTED_COMMAND = "save";
+>>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
     private static final int MIN_LENGTH = 2;
     private static final int MAX_NAME_LENGTH = 100;
 
