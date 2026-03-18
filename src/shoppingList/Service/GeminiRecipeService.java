@@ -16,10 +16,6 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.core.JsonProcessingException;
-<<<<<<< HEAD
-=======
-import com.fasterxml.jackson.core.type.TypeReference;
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 import shoppingList.Model.Product;
 import shoppingList.Model.UnitType;
 
@@ -58,11 +54,9 @@ public class GeminiRecipeService implements  RecipeService {
     public List<InventoryItem> getRecipe(String recipeName, int servings) {
 
         if(null == recipeName || recipeName.isEmpty() || servings < 0 || servings > 100) {
-<<<<<<< HEAD
+
             throw new RecipeGenerationException("gemini didn't work");
-=======
-            throw new RecipeGenerationException("gemini didnt work");
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
         }
 
         String rawPrompt = getGeminiPrompt(recipeName, servings);
@@ -72,13 +66,10 @@ public class GeminiRecipeService implements  RecipeService {
 
         String innerJsonArrayString = extractTextFromGeminiWrapper(rawGeminiResponse);
 
-<<<<<<< HEAD
-
-=======
         if(innerJsonArrayString.trim()== null){
             throw new RecipeGenerationException("Invalid recipe item: Cannot be formulated into ingredients.");
         }
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 
         List<InventoryItem> ingredients = mapToInventoryItems(innerJsonArrayString);
 
@@ -123,22 +114,7 @@ public class GeminiRecipeService implements  RecipeService {
      * @throws RecipeGenerationException If the Jackson ObjectMapper fails to serialize the map structure.
      */
     private String makeJsonStructure(String rawPrompt) {
-<<<<<<< HEAD
-=======
-        String requestBody = """
-        {
-          "contents": [
-            {
-              "parts": [
-                {
-                  "text": "%s"
-                }
-              ]
-            }
-          ]
-        }
-        """.formatted(rawPrompt);
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 
         ObjectMapper mapper = new ObjectMapper();
 

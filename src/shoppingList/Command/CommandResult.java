@@ -7,13 +7,11 @@ package shoppingList.Command;
  */
 public class CommandResult {
 
-<<<<<<< HEAD
-    private final boolean keepRunning;
-    private final String response;
-=======
+
+
     private boolean keepRunning;
     private String response;
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 
     /**
      * Constructs a result with the specified state and feedback message.

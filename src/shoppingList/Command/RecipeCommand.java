@@ -1,9 +1,7 @@
 package shoppingList.Command;
 
-<<<<<<< HEAD
+
 import shoppingList.Exceptions.RecipeGenerationException;
-=======
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
 import shoppingList.Model.InventoryItem;
 import shoppingList.Model.ShoppingList;
 import shoppingList.Service.GeminiRecipeService;
@@ -43,7 +41,7 @@ public class RecipeCommand implements Command {
     public CommandResult execute(ShoppingList shoppingList) {
 
         RecipeService gemini = new GeminiRecipeService();
-<<<<<<< HEAD
+
         try{
 
             List<InventoryItem> itemsToAdd = gemini.getRecipe(toMake,servings);
@@ -57,14 +55,7 @@ public class RecipeCommand implements Command {
         catch(RecipeGenerationException e){
             return new CommandResult(true,e.getMessage());
         }
-=======
-        List<InventoryItem> itemsToAdd = gemini.getRecipe(toMake,servings);
-        for (InventoryItem item : itemsToAdd) {
-            shoppingList.addItem(item);
-        }
 
-        return new CommandResult(true,
-                "Successfully added items from recipe to list");
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
     }
 }

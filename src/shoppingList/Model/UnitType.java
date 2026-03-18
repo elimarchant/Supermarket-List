@@ -23,17 +23,7 @@ public enum UnitType {
         this.label = label;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Retrieves the string abbreviation associated with this unit type.
-     *
-     * @return The string label (e.g., "kg", "ml").
-     */
-    public String getLabel() {
-        return label;
-    }
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 
     /**
      * Resolves a UnitType based on a provided string label.

@@ -16,9 +16,7 @@ public interface Command {
      * @param shoppingList The domain model upon which the command operates.
      * @return A {@link CommandResult} containing the success message and application state.
      */
-<<<<<<< HEAD
+
     CommandResult execute(ShoppingList shoppingList);
-=======
-    public CommandResult execute(ShoppingList shoppingList);
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 }

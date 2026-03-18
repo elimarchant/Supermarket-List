@@ -1,10 +1,7 @@
 package shoppingList.Command;
 
 import shoppingList.Exceptions.ItemNotFoundException;
-<<<<<<< HEAD
-=======
-import shoppingList.Model.InventoryItem;
->>>>>>> 7e74ce40a90cd5df7d2637f9ab17a68177c9e39f
+
 import shoppingList.Model.ShoppingList;
 
 /**
