@@ -35,12 +35,12 @@ public class ShoppingList {
         boolean appears = false;
 
         for (InventoryItem item : list) {
-            if (item.getName().equals(newItem.getName())) {
+            if (item.getName().toLowerCase().equals(newItem.getName().toLowerCase())) {
 
                 if (item.getUnitType() != newItem.getUnitType()) {
                     throw new InvalidCommandException
-                            ("Cant add Item of unit - " + newItem.getUnitType()
-                                    + " to " + item.getName() + " that has unit of "
+                            ("Cant add Item of unit - " + newItem.getUnitType()  + ','
+                                    + " to " + item.getName() + ", because it has unit of "
                                     + item.getUnitType() + "!");
                 }
                 item.setQuantity(item.getQuantity() + newItem.getQuantity());
@@ -84,14 +84,18 @@ public class ShoppingList {
     }
 
     /**
-     * Iterates through the ShoppingList to find a match by exact name.
+     * Finds an item in the list by name, ignoring letter case.
      *
-     * @param itemName The exact name of the item.
+     * @param itemName The name to search for.
      * @return The matching {@link InventoryItem}, or null if not found.
      */
     public InventoryItem getItemByName(String itemName) {
+        if (itemName == null) {
+            return null;
+        }
+        String normalizedName = itemName.toLowerCase();
         for (InventoryItem item : list) {
-            if (itemName.equalsIgnoreCase(item.getName())) {
+            if (item.getName().toLowerCase().equals(normalizedName)) {
                 return item;
             }
         }
@@ -169,26 +173,28 @@ public class ShoppingList {
     /**
      * Directly updates the quantity of an existing item in the list.
      * If the specified amount is 0 or less, the item is removed from the list.
+     * When {@code newUnit} is provided, the item's unit type is changed as well.
      *
-     * @param newItem The exact name of the item to update.
-     * @param amount  The new quantity to assign to the item.
+     * @param itemName The name of the item to update.
+     * @param amount   The new quantity to assign to the item.
+     * @param newUnit  Optional new unit; when null, the current unit is kept.
      * @throws ItemNotFoundException If the specified item does not exist in the list.
      */
-    public void updateItem(String newItem,  int amount) {
-        for (InventoryItem item : list) {
-            if (item.getName().equals(newItem)) {
-
-                if(amount<=0){
-                    list.remove(item);
-                }
-                else{
-                    item.setQuantity(amount);
-                }
-                return;
-            }
-
+    public void updateItem(String itemName, int amount, UnitType newUnit) {
+        InventoryItem item = getItemByName(itemName);
+        if (item == null) {
+            throw new ItemNotFoundException(itemName + " ");
         }
-        throw new ItemNotFoundException(newItem + " ");
+
+        if (amount <= 0) {
+            list.remove(item);
+            return;
+        }
+
+        item.setQuantity(amount);
+        if (newUnit != null) {
+            item.setUnitType(newUnit);
+        }
     }
 
     /**

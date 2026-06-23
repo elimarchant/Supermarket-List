@@ -14,7 +14,7 @@ public class Product {
      * @param name The name of the product.
      */
     public Product(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
 
     }
 

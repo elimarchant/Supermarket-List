@@ -11,7 +11,7 @@ public class InventoryItem {
 
     private final Product product;
     private int quantity;
-    private final UnitType unitType;
+    private UnitType unitType;
     private final double price;
 
     /**
@@ -101,6 +101,16 @@ public class InventoryItem {
      */
     public UnitType getUnitType() {
         return unitType;
+    }
+
+    /**
+     * Updates the unit of measurement for this item.
+     * Package-private to enforce encapsulation through domain classes like ShoppingList.
+     *
+     * @param unitType The new unit type to set.
+     */
+    void setUnitType(UnitType unitType) {
+        this.unitType = unitType;
     }
 
     /**

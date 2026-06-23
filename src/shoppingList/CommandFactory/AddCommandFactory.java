@@ -7,6 +7,8 @@ import shoppingList.Model.InventoryItem;
 import shoppingList.Model.Product;
 import shoppingList.Model.UnitType;
 
+import java.util.Locale;
+
 /**
  * Factory responsible for parsing and constructing an {@link AddCommand}.
  * Validates complex input strings to build valid {@link InventoryItem} domain objects.
@@ -58,7 +60,7 @@ public class AddCommandFactory implements CommandFactory {
             nameBuilder.append(currentWord).append(" ");
             currentIndex++;
         }
-        String name = nameBuilder.toString().trim();
+        String name = nameBuilder.toString().trim().toLowerCase();
         if(name.isEmpty()){
             throw new InvalidCommandException("Invalid product name. Please provide a product name.");
         }

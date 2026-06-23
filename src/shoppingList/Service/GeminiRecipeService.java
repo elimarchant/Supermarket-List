@@ -35,7 +35,7 @@ public class GeminiRecipeService implements  RecipeService {
     private String getApiKey() {
         String apiKey = System.getenv("GEMINI_API_KEY");
         if (apiKey == null|| apiKey.isEmpty()) {
-            throw new RecipeGenerationException("Please set API_KEY environment variable");
+            throw new RecipeGenerationException("Please set GEMINI_API_KEY environment variable");
         }
         return apiKey;
     }
@@ -53,10 +53,14 @@ public class GeminiRecipeService implements  RecipeService {
     @Override
     public List<InventoryItem> getRecipe(String recipeName, int servings) {
 
-        if(null == recipeName || recipeName.isEmpty() || servings < 0 || servings > 100) {
+        if(recipeName == null || recipeName.isEmpty() ) {
 
-            throw new RecipeGenerationException("gemini didn't work");
+            throw new RecipeGenerationException("Issue with Recipe name");
 
+        }
+
+        else if(servings <= 0 || servings > 100){
+            throw new RecipeGenerationException("Issue with serving amount, try a Int between 1 and 100");
         }
 
         String rawPrompt = getGeminiPrompt(recipeName, servings);
@@ -65,11 +69,6 @@ public class GeminiRecipeService implements  RecipeService {
         String rawGeminiResponse  = executeApiCall(jsonPromptRequest);
 
         String innerJsonArrayString = extractTextFromGeminiWrapper(rawGeminiResponse);
-
-        if(innerJsonArrayString.trim()== null){
-            throw new RecipeGenerationException("Invalid recipe item: Cannot be formulated into ingredients.");
-        }
-
 
         List<InventoryItem> ingredients = mapToInventoryItems(innerJsonArrayString);
 
@@ -93,13 +92,16 @@ public class GeminiRecipeService implements  RecipeService {
                         "1. 'quantity' MUST be rounded UP to the nearest whole integer (e.g., if 0.5 is needed, return 1). " +
                         "2. 'price' MUST be an estimated realistic price (as a double) for ONE unit of that ingredient." +
                         " You should get the estimated prices from the website שופרסל or in shufersal - a supermarket in israel." +
-                        " therefor the prices should be in NIS but that shouldn't bother you - all i need is the number" +
+                        " therefor the prices should be in NIS but that shouldn't bother you - all I need is the number" +
                         "Each object in the array must exactly match this format: " +
                         "{\"name\": \"product name\", \"quantity\": 1, \"unit\": \"kg\", \"price\": 2.50}. " +
                         "The 'unit' MUST be exactly one of these strings: (ml, kg, liter, pc, box, g)." +
                         " for smaller amount like salt, vinegar make sure to use g - grams or ml for milliLiter " +
                         "because no need to buy a kg of salt and pepper for such a small amount. " +
-                        "If the recipeName is not a valid, edible food (e.g., 'gold', 'phone', 'dream'), return exactly the word null and nothing else.",
+                        "If the recipeName is not a valid, edible food (e.g., 'gold', 'phone', 'dream'), return exactly the word null and nothing else." +
+                        "Make sure the ingredients are in English only, and that the ingredients have simple names. " +
+                        "For example, don't write 'digestive biscuits', just write biscuits. or don't write 'unsalted butter', " +
+                        "just write 'butter'.",
                 servings, recipeName);
 
         return prompt;
@@ -151,8 +153,8 @@ public class GeminiRecipeService implements  RecipeService {
     private String executeApiCall(String requestBody)  {
 
         String GEMINI_API_URL_CONCATENATED_WITH_YOUR_API_KEY =
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:" +
-                        "generateContent?key="  + getApiKey();
+                "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash" +
+                ":generateContent?key=" + getApiKey();
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -242,7 +244,7 @@ public class GeminiRecipeService implements  RecipeService {
 
             for(JsonNode jsonObject : arrayNode) {
 
-                String itemName = jsonObject.get("name").asText();
+                String itemName = jsonObject.get("name").asText().toLowerCase();
                 double itemQuantity = jsonObject.get("quantity").asDouble();
                 String itemUnitString = jsonObject.get("unit").asText();
                 double estimatedPrice = jsonObject.get("price").asDouble();

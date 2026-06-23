@@ -10,6 +10,11 @@ import shoppingList.Parser.InputParser;
 import java.util.Scanner;
 
 /**
+ * lINK FOR SHOPPING LIST EXPLINATION:
+ * https://excalidraw.com/#json=uJX0Sv2Mro3rola2aIsMr,XA1WTacELglDD4K_-FSK3g
+ */
+
+/**
  * Orchestrates the Command Line Interface (CLI) for the Shopping List application.
  * Serves as the primary controller, managing the application lifecycle,
  * user session, and the central Read-Eval-Print Loop (REPL).

@@ -48,7 +48,7 @@ public class InputParser {
      * @throws InvalidCommandException If the initial command keyword does not exist in the registry.
      */
     public Command parse(String input) {
-        String[] parts = input.trim().split(" ");
+        String[] parts = input.trim().split("\\s+");
         String command = parts[0];
 
         CommandFactory commandFactory = registry.get(command);
